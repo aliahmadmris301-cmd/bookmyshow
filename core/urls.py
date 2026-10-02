@@ -1,0 +1,40 @@
+from django.urls import path
+from django.contrib.auth.views import LogoutView
+from . import views
+urlpatterns=[
+    path(
+        '',
+        views.home,
+        name='home'
+    ),
+    path(
+        'signup/',
+        views.signup,
+        name='signup'
+    ),
+    path(
+        'login/',
+        views.user_login,
+        name='login'
+    ),
+    path(
+        'logout/',
+        LogoutView.as_view(),
+        name='logout'
+    ),
+    path(
+        'dashboard/',
+        views.dashboard,
+        name='dashboard'
+    ),
+    path(
+        'bookings/',
+        views.bookings,
+        name='bookings'
+    ),
+    path(
+        'cancel-booking/<int:booking_id>/',
+        views.cancel_booking,
+        name='cancel_booking'
+    ),
+]

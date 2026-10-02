@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BookMyShow - Movies, Events & Entertainment
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'core/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- TOP NAVBAR -->
+
+<header class="top-navbar">
+
+    <div class="nav-left">
+
+        <a
+            href="{% url 'home' %}"
+            class="brand"
+        >
+            BookMyShow
+        </a>
+
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                placeholder="Search for Movies, Events, Plays, Sports and Activities"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <button class="location-button">
+            📍 Delhi-NCR ▾
+        </button>
+
+
+        {% if user.is_authenticated %}
+
+            <span class="welcome">
+                Hi, {{ user.username }}
+            </span>
+
+            <form
+                method="post"
+                action="{% url 'logout' %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="signin-button"
+                >
+                    Sign Out
+                </button>
+
+            </form>
+
+        {% else %}
+
+            <a
+                href="{% url 'login' %}"
+                class="signin-button"
+            >
+                Sign In
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</header>
+
+
+<!-- CATEGORY BAR -->
+
+<nav class="category-bar">
+
+    <div class="category-left">
+
+        <a href="{% url 'home' %}">
+            Movies
+        </a>
+
+        <a href="#">
+            Stream
+        </a>
+
+        <a href="#">
+            Events
+        </a>
+
+        <a href="#">
+            Plays
+        </a>
+
+        <a href="#">
+            Sports
+        </a>
+
+        <a href="#">
+            Activities
+        </a>
+
+    </div>
+
+
+    <div class="category-right">
+
+        <a href="#">
+            ListYourShow
+        </a>
+
+        <a href="#">
+            Corporates
+        </a>
+
+        <a href="#">
+            Offers
+        </a>
+
+        <a href="#">
+            Gift Cards
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MESSAGES -->
+
+{% if messages %}
+
+    <div class="messages">
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+
+<!-- PAGE CONTENT -->
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<script
+    src="{% static 'core/script.js' %}"
+></script>
+
+</body>
+
+</html>

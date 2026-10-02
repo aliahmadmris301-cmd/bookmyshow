@@ -1,0 +1,114 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <div class="section-header">
+
+        <div>
+
+            <h1>Recommended Movies</h1>
+
+            <p>
+                Welcome, {{ user.username }}!
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="movie-grid">
+
+        {% for event in events %}
+
+        <div class="movie-card">
+
+            {% if event.image %}
+
+                <img
+                    src="{{ event.image }}"
+                    alt="{{ event.title }}"
+                >
+
+            {% else %}
+
+                <img
+                    src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba"
+                    alt="{{ event.title }}"
+                >
+
+            {% endif %}
+
+
+            <h3>
+                {{ event.title }}
+            </h3>
+
+
+            <p>
+                {{ event.description }}
+            </p>
+
+
+            <p>
+                📍 {{ event.venue }}
+            </p>
+
+
+            <p>
+                ₹{{ event.price }}
+            </p>
+
+
+            <p>
+                Seats:
+                {{ event.available_seats }}
+            </p>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="event_id"
+                    value="{{ event.id }}"
+                >
+
+
+                <input
+                    type="number"
+                    name="quantity"
+                    min="1"
+                    max="{{ event.available_seats }}"
+                    value="1"
+                >
+
+
+                <button
+                    type="submit"
+                    class="signin-button"
+                >
+                    Book Tickets
+                </button>
+
+            </form>
+
+        </div>
+
+        {% empty %}
+
+            <p>
+                No movies available.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            BookMyShow
+        </div>
+
+        <h1>Join BookMyShow</h1>
+
+        <p class="login-subtitle">
+            Create your account to book movies and events.
+        </p>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="form-error">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <label>
+                Username
+            </label>
+
+            {{ form.username }}
+
+
+            <label>
+                Email
+            </label>
+
+            {{ form.email }}
+
+
+            <label>
+                Password
+            </label>
+
+            {{ form.password1 }}
+
+
+            <label>
+                Confirm Password
+            </label>
+
+            {{ form.password2 }}
+
+
+            <button
+                type="submit"
+                class="login-submit"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="login-divider">
+            <span>OR</span>
+        </div>
+
+
+        <p class="new-user">
+            Already have an account?
+        </p>
+
+
+        <a
+            href="{% url 'login' %}"
+            class="create-account"
+        >
+            Sign In
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

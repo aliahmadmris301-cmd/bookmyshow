@@ -1,0 +1,73 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <h1>My Bookings</h1>
+
+    {% if bookings %}
+
+        <div class="booking-list">
+
+            {% for booking in bookings %}
+
+                <div class="booking-card">
+
+                    <h2>
+                        {{ booking.event.title }}
+                    </h2>
+
+                    <p>
+                        Venue:
+                        {{ booking.event.venue }}
+                    </p>
+
+                    <p>
+                        Date:
+                        {{ booking.event.date }}
+                    </p>
+
+                    <p>
+                        Tickets:
+                        {{ booking.quantity }}
+                    </p>
+
+                    <p>
+                        Booked on:
+                        {{ booking.booking_date }}
+                    </p>
+
+                    <form
+                        method="post"
+                        action="{% url 'cancel_booking' booking.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Cancel Booking
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>
+            You have no bookings yet.
+        </p>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
